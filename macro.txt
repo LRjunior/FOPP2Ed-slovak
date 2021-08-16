@@ -1,0 +1,43 @@
+
+Public Sub CreateIndexFromPhrases()
+
+' Find dialog properties - find whole phrases
+Selection.Find.ClearFormatting
+Selection.Find.Font.Bold = True
+With Selection.Find
+.Text = ""
+.Replacement.Text = ""
+.Forward = True
+.Wrap = wdFindContinue
+.Format = True
+.MatchCase = False
+.MatchWholeWord = False
+.MatchWildcards = False
+.MatchSoundsLike = False
+.MatchAllWordForms = False
+End With
+
+' Loop through the document and search for bold phrases
+With Selection.Find
+  While .Execute
+    If .Found = True Then
+      ActiveDocument.Indexes.MarkEntry Range:=Selection.Range, Entry:=Selection.Text
+      Selection.Find.Execute
+      ActiveDocument.Indexes.MarkEntry Range:=Selection.Range, Entry:=Selection.Range.Text
+      Selection.SetRange Selection.End, Selection.End
+      Selection.Select
+    End If
+  Wend
+End With
+
+' Create Index at the end
+With Selection
+  .EndKey Unit:=wdStory
+  .InsertBreak Type:=wdSectionBreakNextPage
+  .TypeText "Index" & vbCrLf
+End With
+ActiveDocument.Indexes.Add Range:=Selection.Range, HeadingSeparator:= _
+  wdHeadingSeparatorNone, Type:=wdIndexIndent, RightAlignPageNumbers:= _
+  False, NumberOfColumns:=2, IndexLanguage:=wdEnglishUS
+
+End Sub
