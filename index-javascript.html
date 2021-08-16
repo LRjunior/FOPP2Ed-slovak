@@ -1,0 +1,57 @@
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script>
+/* Generate Index section with references to bold marked text.
+
+   @author Ladislav Rado
+   @date 2015-10-15
+   @version 1.0
+ */
+String.prototype.lowerCaseFirstLetter = function() {
+    return this.charAt(0).toLowerCase() + this.slice(1);
+}
+
+var phrases = [];
+var phrase_counter = 0;
+$(document).ready(function () {
+	$('b').each(function(){
+		var $b = $(this);
+		//var divId = $b.closest('div').attr('id');
+		//var spanId = $span.attr('id');
+		var bText = $b.text().trim();//.lowerCaseFirstLetter();
+		if (typeof(phrases[bText]) == 'undefined')
+			phrases[bText] = [];
+		phrases[bText].push(phrase_counter);
+		$b.attr('id','index'+phrase_counter);
+		phrase_counter++;
+	});
+	
+	var keys = []
+	for (k in phrases) {
+		if (phrases.hasOwnProperty(k)) {
+			keys.push(k);
+		}
+	}
+	
+	keys.sort(function (a, b) {
+		return a.toLowerCase().localeCompare(b.toLowerCase());
+	});
+	
+	$("body > div").append("<h1>Index</h1>");
+	
+	var len = keys.length;
+	for (var i = 0; i < len; i++) {
+		var phrase = keys[i];
+		
+		var pages_delimited = ""
+		m = 0
+		for (page in phrases[phrase]) {
+			if (pages_delimited.length > 0)
+				pages_delimited += ", ";
+			pages_delimited += '<a href="#index' + phrases[phrase][m] + '">' + (parseInt(page,10) + 1) + '</a>';
+			m++;
+		}
+		$("body > div").append(phrase +"&emsp;" +pages_delimited + "<br>");
+	}
+	
+});
+</script> 
