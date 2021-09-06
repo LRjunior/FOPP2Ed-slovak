@@ -6,3 +6,5 @@ Preklad 2. vydania knihy Základy cvičenia na klavíri od pána Chuan C. Chang 
 http://www.pianopractice.org
 
 http://rsw.sk/piano/zaklady-cvicenia-na-klaviri/
+
+License: Fair use.
