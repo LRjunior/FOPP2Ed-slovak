@@ -5,8 +5,14 @@
 \documentclass[11pt,a4paper%,twoside
 ]{article}
 \usepackage{fontspec}
-\setmainfont[Numbers=Lining]{Linux Libertine O}
-\newcommand{\noteDynamics}[2][1.3]{\raisebox{0.05ex}{\fontspec[Scale=#1]{Emmentaler-11}{#2}}}
+\setmainfont[Path=fonts/,
+Numbers={Lining},
+Ligatures={Common,TeX},
+BoldFont=LinLibertineOB.otf,
+ItalicFont=LinLibertineOI.otf,
+BoldItalicFont=LinLibertineOBI.otf
+]{LinLibertineO.otf}
+\newcommand{\noteDynamics}[2][1.3]{\raisebox{0.05ex}{\fontspec[Scale=#1,Path=fonts/]{emmentaler-11.otf}{#2}}}
 \usepackage{polyglossia}
 \setdefaultlanguage{slovak}
 \setotherlanguage{english}
